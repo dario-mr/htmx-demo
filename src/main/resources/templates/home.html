@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" th:replace="~{layout :: layout(~{::body})}">
+  <body>
+    <div class="mx-auto max-w-lg space-y-4 p-4">
+      <h1 class="text-3xl font-semibold">Todos</h1>
+
+      <form hx-post="todos" hx-target="#todo-list" hx-swap="afterbegin" class="join w-full">
+        <input
+          class="input join-item w-full focus:outline-none"
+          name="text"
+          placeholder="Add a todo..."
+          required
+        />
+        <button class="btn join-item btn-primary" hx-disabled-elt="this">Add</button>
+      </form>
+      <div id="error-message" class="mb-2 text-sm text-red-600"></div>
+
+      <th:block th:insert="~{fragments/todo :: list(${todos})}"></th:block>
+    </div>
+
+    <!-- error handling -->
+    <script>
+      document.body.addEventListener('htmx:responseError', function (event) {
+        document.getElementById('error-message').innerHTML = event.detail.xhr.responseText;
+      });
+      document.body.addEventListener('htmx:sendError', function (event) {
+        document.getElementById('error-message').innerHTML =
+          '<span>Network error. Please check your connection.</span>';
+      });
+      document.body.addEventListener('htmx:afterRequest', function (event) {
+        if (event.detail.xhr.status >= 200 && event.detail.xhr.status < 300) {
+          document.getElementById('error-message').innerHTML = '';
+        }
+      });
+    </script>
+  </body>
+</html>

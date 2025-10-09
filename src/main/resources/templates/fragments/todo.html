@@ -1,0 +1,35 @@
+<!-- list fragment -->
+<div data-th-fragment="list(todos)">
+  <ul id="todo-list" class="space-y-4">
+    <li data-th-each="todo : ${todos}">
+      <div data-th-insert="~{fragments/todo :: item(todo=${todo})}" data-th-remove="tag"></div>
+    </li>
+  </ul>
+</div>
+
+<!-- single-item fragment for controller "add" response -->
+<div data-th-fragment="newTodo(todo)">
+  <li>
+    <div data-th-insert="~{fragments/todo :: item(todo=${todo})}" data-th-remove="tag"></div>
+  </li>
+</div>
+
+<!-- single-item fragment -->
+<div data-th-fragment="item(todo)">
+  <article class="card bg-base-200 shadow-md transition-colors hover:bg-base-300">
+    <div class="card-body flex flex-row items-center justify-between gap-2 p-3">
+      <span class="truncate" data-th-text="${todo.text}"></span>
+      <div class="flex items-center gap-2">
+        <button
+          class="btn px-2 btn-outline btn-sm btn-error"
+          data-th-attr="hx-delete=|todos/${todo.id}|"
+          hx-target="closest li"
+          hx-swap="outerHTML"
+          hx-disabled-elt="this"
+        >
+          <img src="public/bin.png" alt="Delete" class="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+  </article>
+</div>
