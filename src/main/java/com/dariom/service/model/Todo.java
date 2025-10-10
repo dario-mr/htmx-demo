@@ -1,4 +1,4 @@
-package com.dariom.model;
+package com.dariom.service.model;
 
 public record Todo(
     long id,

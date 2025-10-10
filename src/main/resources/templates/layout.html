@@ -10,14 +10,12 @@
     <script defer th:src="@{/webjars/hyperscript.org/dist/_hyperscript.min.js}"></script>
 
     <!-- CSRF for Spring Security -->
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <script>
       document.addEventListener('htmx:configRequest', (evt) => {
-        const token = document.querySelector('meta[name="_csrf"]')?.content;
-        const header = document.querySelector('meta[name="_csrf_header"]')?.content;
-        if (token && header) {
-          evt.detail.headers[header] = token;
+        const csrfCookie = document.cookie.split('; ').find((c) => c.startsWith('XSRF-TOKEN='));
+        if (csrfCookie) {
+          const token = decodeURIComponent(csrfCookie.split('=')[1]);
+          evt.detail.headers['X-XSRF-TOKEN'] = token;
         }
       });
     </script>

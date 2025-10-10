@@ -2,7 +2,7 @@ package com.dariom.service;
 
 import static org.springframework.util.StringUtils.hasText;
 
-import com.dariom.model.Todo;
+import com.dariom.service.model.Todo;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
