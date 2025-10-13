@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <title>htmx Demo</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link th:href="@{/public/app.css}" rel="stylesheet" />
     <script defer th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
@@ -20,7 +22,7 @@
       });
     </script>
   </head>
-  <body class="p-6">
+  <body>
     <div th:replace="${content}"></div>
   </body>
 </html>
